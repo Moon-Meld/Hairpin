@@ -1,26 +1,30 @@
 <div align="center">
 
+<a href="https://github.com/Moon-Meld/Hairpin">
+  <img src="docs/assets/cover.png" width="100%" alt="Hairpin Cover Banner" />
+</a>
+
+<br/>
+
 <p align="center">
-  <img src="docs/assets/hero-banner.jpg" width="100%" alt="Hairpin Hero Banner" style="border-radius: 16px; box-shadow: 0 20px 40px rgba(0,0,0,0.4);" />
+  <a href="https://github.com/Moon-Meld/Hairpin/releases/latest">
+    <img src="https://img.shields.io/badge/Download-DMG%20Installer-F0C27F?style=for-the-badge&logo=apple&logoColor=black" alt="Download DMG" />
+  </a>
+  <a href="#-quick-start">
+    <img src="https://img.shields.io/badge/Get%20Started-30%20Seconds-22D3EE?style=for-the-badge&logoColor=black" alt="Get Started" />
+  </a>
+  <a href="README_zh.md">
+    <img src="https://img.shields.io/badge/Language-简体中文文档-38BDF8?style=for-the-badge&logoColor=white" alt="Chinese Documentation" />
+  </a>
 </p>
 
-# ✦ Hairpin
-
-### **Tame your menu bar. Reclaim the notch.**
-
-A minimalist, privacy-first macOS menu bar agent tailored for MacBook notch displays.<br/>
-Folds clutter away without disabling SIP, without accessibility privileges, and with zero telemetry.
-
-<br/>
-
-[![macOS Version](https://img.shields.io/badge/macOS-13.0%2B%20Ventura%20%7C%20Sonoma%20%7C%20Sequoia-000000?style=for-the-badge&logo=apple&logoColor=white)](https://apple.com/macos)
-[![Swift 6](https://img.shields.io/badge/Swift-6.0-F05138?style=for-the-badge&logo=swift&logoColor=white)](https://swift.org)
-[![License: MIT](https://img.shields.io/badge/License-MIT-F0C27F?style=for-the-badge&logoColor=black)](LICENSE)
-[![Zero Telemetry](https://img.shields.io/badge/Privacy-Zero%20Network-4ADE80?style=for-the-badge&logo=shield&logoColor=black)](#-privacy-by-design)
-
-<br/>
-
-[**Download DMG (v1.0.0)**](https://github.com/Moon-Meld/Hairpin/releases) • [**Quick Start**](#-quick-start) • [**Architecture**](#-how-it-works) • [**简体中文文档**](README_zh.md)
+<p align="center">
+  <img src="https://img.shields.io/badge/macOS-13.0%2B%20Ventura%20%7C%20Sonoma%20%7C%20Sequoia-000000?style=flat-square&logo=apple&logoColor=white" alt="macOS" />
+  <img src="https://img.shields.io/badge/Swift-6.0-F05138?style=flat-square&logo=swift&logoColor=white" alt="Swift 6" />
+  <img src="https://img.shields.io/badge/License-MIT-F0C27F?style=flat-square&logoColor=black" alt="License" />
+  <img src="https://img.shields.io/badge/SIP-Untouched-4ADE80?style=flat-square&logoColor=black" alt="SIP" />
+  <img src="https://img.shields.io/badge/Network-Zero%20Telemetry-10B981?style=flat-square&logo=shield&logoColor=white" alt="Zero Telemetry" />
+</p>
 
 </div>
 

@@ -1,26 +1,30 @@
 <div align="center">
 
+<a href="https://github.com/Moon-Meld/Hairpin">
+  <img src="docs/assets/cover_zh.png" width="100%" alt="Hairpin 封面海报" />
+</a>
+
+<br/>
+
 <p align="center">
-  <img src="docs/assets/hero-banner.jpg" width="100%" alt="Hairpin Hero Banner" style="border-radius: 16px; box-shadow: 0 20px 40px rgba(0,0,0,0.4);" />
+  <a href="https://github.com/Moon-Meld/Hairpin/releases/latest">
+    <img src="https://img.shields.io/badge/立即下载-DMG%20安装镜像-F0C27F?style=for-the-badge&logo=apple&logoColor=black" alt="下载 DMG" />
+  </a>
+  <a href="#-快速上手">
+    <img src="https://img.shields.io/badge/快速开始-30秒上手-22D3EE?style=for-the-badge&logoColor=black" alt="快速开始" />
+  </a>
+  <a href="README.md">
+    <img src="https://img.shields.io/badge/English-Documentation-38BDF8?style=for-the-badge&logoColor=white" alt="English Documentation" />
+  </a>
 </p>
 
-# ✦ Hairpin
-
-### **整理杂乱菜单栏，释放刘海屏空间。**
-
-专为配备刘海屏的 MacBook 打造的原生极简菜单栏管理工具。<br/>
-无需关闭 SIP、无需辅助功能权限、零网络请求，彻底告别图标被刘海遮挡与截断的烦恼。
-
-<br/>
-
-[![macOS Version](https://img.shields.io/badge/macOS-13.0%2B%20Ventura%20%7C%20Sonoma%20%7C%20Sequoia-000000?style=for-the-badge&logo=apple&logoColor=white)](https://apple.com/macos)
-[![Swift 6](https://img.shields.io/badge/Swift-6.0-F05138?style=for-the-badge&logo=swift&logoColor=white)](https://swift.org)
-[![License: MIT](https://img.shields.io/badge/License-MIT-F0C27F?style=for-the-badge&logoColor=black)](LICENSE)
-[![Zero Telemetry](https://img.shields.io/badge/Privacy-%E9%9B%B6%E7%BD%91%E7%BB%9C%E5%A4%96%E4%BC%A0-4ADE80?style=for-the-badge&logo=shield&logoColor=black)](#-零信任隐私安全设计)
-
-<br/>
-
-[**下载预编译 DMG (v1.0.0)**](https://github.com/Moon-Meld/Hairpin/releases) • [**快速上手**](#-快速上手) • [**原理解析**](#-核心工作原理) • [**English README**](README.md)
+<p align="center">
+  <img src="https://img.shields.io/badge/macOS-13.0%2B%20Ventura%20%7C%20Sonoma%20%7C%20Sequoia-000000?style=flat-square&logo=apple&logoColor=white" alt="macOS" />
+  <img src="https://img.shields.io/badge/Swift-6.0-F05138?style=flat-square&logo=swift&logoColor=white" alt="Swift 6" />
+  <img src="https://img.shields.io/badge/License-MIT-F0C27F?style=flat-square&logoColor=black" alt="License" />
+  <img src="https://img.shields.io/badge/SIP%20系统完整性-无需关闭-4ADE80?style=flat-square&logoColor=black" alt="SIP" />
+  <img src="https://img.shields.io/badge/隐私-零网络外传-10B981?style=flat-square&logo=shield&logoColor=white" alt="零网络外传" />
+</p>
 
 </div>
 
