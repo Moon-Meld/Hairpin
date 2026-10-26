@@ -1,0 +1,176 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 340" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0f141c"/>
+      <stop offset="100%" stop-color="#080b0f"/>
+    </linearGradient>
+    <linearGradient id="barGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#1e2633"/>
+      <stop offset="100%" stop-color="#141a24"/>
+    </linearGradient>
+    <linearGradient id="goldCoral" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#f0c27f"/>
+      <stop offset="100%" stop-color="#d4776b"/>
+    </linearGradient>
+    <linearGradient id="islandGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1c2331" stop-opacity="0.95"/>
+      <stop offset="100%" stop-color="#121720" stop-opacity="0.95"/>
+    </linearGradient>
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="8" result="blur"/>
+      <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+    </filter>
+    <filter id="subtleShadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="8" stdDeviation="12" flood-color="#000000" flood-opacity="0.6"/>
+    </filter>
+  </defs>
+
+  <style>
+    .mono { font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, sans-serif; }
+    .label { font-size: 11px; fill: #8b949e; }
+    .accent { fill: #f0c27f; font-weight: 600; }
+    .white { fill: #f0f6fc; }
+    .dim { fill: #545d68; }
+  </style>
+
+  <!-- Container Box -->
+  <rect x="2" y="2" width="876" height="336" rx="16" fill="url(#bgGrad)" stroke="#30363d" stroke-width="1.5"/>
+
+  <!-- Top Title / Context -->
+  <text x="32" y="38" class="mono" font-size="14" font-weight="600" fill="#f0f6fc">Hairpin Folding Engine &amp; Notch Architecture</text>
+  <text x="32" y="56" class="mono label">Dual-NSStatusItem spacer technique with auxiliaryTopRightArea detection</text>
+
+  <!-- MacBook Top Bezel + Menu Bar Mockup -->
+  <g transform="translate(32, 76)">
+    <!-- Menu Bar Container -->
+    <rect x="0" y="0" width="816" height="40" rx="8" fill="url(#barGrad)" stroke="#30363d" stroke-width="1"/>
+
+    <!-- Left: Apple Logo & App Menus -->
+    <g transform="translate(16, 25)" class="mono" font-size="12" fill="#c9d1d9">
+      <path d="M4.5 1.5 C4.8 0.8 5.4 0.3 6.1 0.1 C6.2 0.7 5.9 1.4 5.5 1.8 C5.1 2.2 4.4 2.4 4 2.2 C4 2 4.2 1.6 4.5 1.5 Z M7.8 5.6 C7.8 7.3 9.3 7.8 9.4 7.9 C9.4 8 9.1 8.8 8.5 9.7 C8 10.4 7.4 11.2 6.5 11.2 C5.7 11.2 5.4 10.7 4.5 10.7 C3.5 10.7 3.2 11.2 2.4 11.2 C1.6 11.2 1 10.4 0.5 9.7 C-0.5 8.1 -0.2 5.5 1.1 4.7 C1.8 4.3 2.5 4 3.3 4 C4.1 4 4.7 4.5 5.2 4.5 C5.7 4.5 6.4 4 7.3 4 C7.7 4 8.7 4.1 9.3 4.9 C8.4 5.4 7.8 6.5 7.8 5.6 Z" fill="#f0f6fc" transform="translate(0, -9) scale(1.1)"/>
+      <text x="24" y="0" font-weight="600">Finder</text>
+      <text x="80" y="0" fill="#8b949e">File</text>
+      <text x="116" y="0" fill="#8b949e">Edit</text>
+      <text x="154" y="0" fill="#8b949e">View</text>
+      <text x="198" y="0" fill="#8b949e">Window</text>
+    </g>
+
+    <!-- Center: Physical Notch Cutout -->
+    <path d="M 328 0 
+             L 336 0 
+             A 6 6 0 0 1 342 6 
+             L 342 22 
+             A 8 8 0 0 0 350 30 
+             L 466 30 
+             A 8 8 0 0 0 474 22 
+             L 474 6 
+             A 6 6 0 0 1 480 0 
+             L 488 0 Z" fill="#000000"/>
+    
+    <!-- Camera Lens & Mic Indicator -->
+    <circle cx="408" cy="14" r="4.5" fill="#0f172a" stroke="#1e293b" stroke-width="1.5"/>
+    <circle cx="408" cy="14" r="1.5" fill="#0284c7" opacity="0.8"/>
+    <circle cx="432" cy="14" r="1.5" fill="#1e293b"/>
+
+    <!-- Notch Label -->
+    <text x="408" y="46" text-anchor="middle" class="mono" font-size="10" fill="#f0c27f" font-weight="500">PHYSICAL NOTCH</text>
+
+    <!-- Right: Auxiliary Top Right Area -->
+    <g transform="translate(488, 0)">
+      <!-- Background highlight for auxiliary area -->
+      <rect x="0" y="0" width="328" height="40" rx="0" fill="#38bdf8" fill-opacity="0.04"/>
+
+      <!-- Hidden Icons (Pushed Left Offscreen Zone) -->
+      <g transform="translate(16, 25)" opacity="0.35">
+        <circle cx="8" cy="-5" r="7" fill="#64748b"/>
+        <rect x="26" y="-12" width="14" height="14" rx="3" fill="#64748b"/>
+        <circle cx="56" cy="-5" r="7" fill="#64748b"/>
+        <text x="35" y="24" text-anchor="middle" class="mono" font-size="9" fill="#94a3b8">Collapsed Zone</text>
+      </g>
+
+      <!-- SEPARATOR ITEM (Draggable Anchor) -->
+      <g transform="translate(100, 10)">
+        <rect x="0" y="0" width="22" height="20" rx="4" fill="url(#goldCoral)" fill-opacity="0.15" stroke="url(#goldCoral)" stroke-width="1"/>
+        <text x="11" y="15" text-anchor="middle" class="mono" font-size="14" font-weight="bold" fill="#f0c27f">|</text>
+      </g>
+
+      <!-- ALWAYS VISIBLE ICONS (Right of Separator) -->
+      <g transform="translate(136, 25)">
+        <!-- Wifi icon -->
+        <path d="M0 0 A10 10 0 0 1 16 0 M3 3 A6 6 0 0 1 13 3 M6 6 A2 2 0 0 1 10 6" stroke="#e2e8f0" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+        <!-- Battery icon -->
+        <rect x="28" y="-10" width="22" height="11" rx="2.5" fill="none" stroke="#e2e8f0" stroke-width="1.2"/>
+        <rect x="30" y="-8" width="15" height="7" rx="1.5" fill="#4ade80"/>
+        <path d="M51 -7 L52 -7 L52 -2 L51 -2 Z" fill="#e2e8f0"/>
+        <!-- Control Center -->
+        <rect x="62" y="-10" width="14" height="11" rx="3" fill="none" stroke="#e2e8f0" stroke-width="1.2"/>
+        <circle cx="66" cy="-5" r="1.5" fill="#e2e8f0"/>
+        <circle cx="72" cy="-5" r="1.5" fill="#e2e8f0"/>
+      </g>
+
+      <!-- TOGGLE ITEM (Hairpin Control Button) -->
+      <g transform="translate(236, 8)">
+        <rect x="0" y="0" width="24" height="24" rx="6" fill="url(#goldCoral)" filter="url(#subtleShadow)"/>
+        <!-- Hairpin / list icon inside -->
+        <path d="M 6 8 L 18 8 M 6 12 L 18 12 M 6 16 L 14 16" stroke="#0f172a" stroke-width="1.8" stroke-linecap="round"/>
+      </g>
+
+      <!-- Clock -->
+      <text x="272" y="24" class="mono" font-size="11" font-weight="500" fill="#f8fafc">9:41 AM</text>
+    </g>
+  </g>
+
+  <!-- Secondary Dynamic Island Drawer (Below Notch) -->
+  <g transform="translate(328, 142)" filter="url(#subtleShadow)">
+    <!-- Pill Panel -->
+    <rect x="0" y="0" width="224" height="48" rx="14" fill="url(#islandGrad)" stroke="url(#goldCoral)" stroke-width="1" stroke-opacity="0.4"/>
+    
+    <!-- Glowing Orange Dot -->
+    <circle cx="22" cy="24" r="4" fill="#fb923c" filter="url(#glow)"/>
+    <circle cx="22" cy="24" r="2.5" fill="#fff7ed"/>
+
+    <!-- Labels -->
+    <text x="36" y="20" class="mono" font-size="11" font-weight="600" fill="#f8fafc">Behind the Notch</text>
+    <text x="36" y="34" class="mono" font-size="9" fill="#94a3b8">3 hidden status icons folded</text>
+
+    <!-- Show All Button -->
+    <rect x="150" y="12" width="60" height="24" rx="12" fill="url(#goldCoral)"/>
+    <text x="180" y="27" text-anchor="middle" class="mono" font-size="10" font-weight="700" fill="#0f172a">Show All</text>
+  </g>
+
+  <!-- Explanatory Annotation Callouts -->
+  <g transform="translate(32, 225)" class="mono">
+    <!-- Pillar 1 -->
+    <g transform="translate(0, 0)">
+      <rect x="0" y="0" width="256" height="85" rx="10" fill="#161b22" stroke="#30363d" stroke-width="1"/>
+      <circle cx="24" cy="24" r="10" fill="#f0c27f" fill-opacity="0.15"/>
+      <text x="24" y="28" text-anchor="middle" font-size="11" font-weight="700" fill="#f0c27f">1</text>
+      <text x="44" y="28" font-size="12" font-weight="600" fill="#f0f6fc">Dual-Item Spacer Engine</text>
+      <text x="16" y="50" font-size="10" fill="#8b949e">Separator length expands to</text>
+      <text x="16" y="65" font-size="10" fill="#8b949e"><tspan fill="#f0c27f" font-weight="600">10,000pt</tspan>, safely pushing folded</text>
+      <text x="16" y="78" font-size="10" fill="#8b949e">icons off-screen without SIP bypass.</text>
+    </g>
+
+    <!-- Pillar 2 -->
+    <g transform="translate(280, 0)">
+      <rect x="0" y="0" width="256" height="85" rx="10" fill="#161b22" stroke="#30363d" stroke-width="1"/>
+      <circle cx="24" cy="24" r="10" fill="#38bdf8" fill-opacity="0.15"/>
+      <text x="24" y="28" text-anchor="middle" font-size="11" font-weight="700" fill="#38bdf8">2</text>
+      <text x="44" y="28" font-size="12" font-weight="600" fill="#f0f6fc">Notch Safe-Area Sensing</text>
+      <text x="16" y="50" font-size="10" fill="#8b949e">Queries <tspan fill="#38bdf8" font-family="monospace">auxiliaryTopRightArea</tspan></text>
+      <text x="16" y="65" font-size="10" fill="#8b949e">to detect hardware camera housing</text>
+      <text x="16" y="78" font-size="10" fill="#8b949e">&amp; compute exact usable pixel bounds.</text>
+    </g>
+
+    <!-- Pillar 3 -->
+    <g transform="translate(560, 0)">
+      <rect x="0" y="0" width="256" height="85" rx="10" fill="#161b22" stroke="#30363d" stroke-width="1"/>
+      <circle cx="24" cy="24" r="10" fill="#4ade80" fill-opacity="0.15"/>
+      <text x="24" y="28" text-anchor="middle" font-size="11" font-weight="700" fill="#4ade80">3</text>
+      <text x="44" y="28" font-size="12" font-weight="600" fill="#f0f6fc">Zero-Trust Privacy Core</text>
+      <text x="16" y="50" font-size="10" fill="#8b949e">Pure Carbon <tspan fill="#4ade80" font-family="monospace">RegisterEventHotKey</tspan></text>
+      <text x="16" y="65" font-size="10" fill="#8b949e">zero Accessibility permissions,</text>
+      <text x="16" y="78" font-size="10" fill="#8b949e">zero screen recording, zero network.</text>
+    </g>
+  </g>
+</svg>

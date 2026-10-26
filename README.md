@@ -1,146 +1,229 @@
 <div align="center">
 
+<p align="center">
+  <img src="docs/assets/hero-banner.jpg" width="100%" alt="Hairpin Hero Banner" style="border-radius: 16px; box-shadow: 0 20px 40px rgba(0,0,0,0.4);" />
+</p>
+
 # ✦ Hairpin
 
-**Tame your menu bar. Reclaim the notch.**
+### **Tame your menu bar. Reclaim the notch.**
 
-A lightweight, privacy-first macOS menu bar manager for notched MacBooks.
+A minimalist, privacy-first macOS menu bar agent tailored for MacBook notch displays.<br/>
+Folds clutter away without disabling SIP, without accessibility privileges, and with zero telemetry.
 
-<img src="Hairpin/Resources/AppIcon-1024.png" width="128" alt="Hairpin icon" />
+<br/>
 
-![macOS 13+](https://img.shields.io/badge/macOS-13%2B-blue)
-![Swift 6](https://img.shields.io/badge/Swift-6-orange)
-![License](https://img.shields.io/badge/License-MIT-green)
-![No Network](https://img.shields.io/badge/Network-None-brightgreen)
+[![macOS Version](https://img.shields.io/badge/macOS-13.0%2B%20Ventura%20%7C%20Sonoma%20%7C%20Sequoia-000000?style=for-the-badge&logo=apple&logoColor=white)](https://apple.com/macos)
+[![Swift 6](https://img.shields.io/badge/Swift-6.0-F05138?style=for-the-badge&logo=swift&logoColor=white)](https://swift.org)
+[![License: MIT](https://img.shields.io/badge/License-MIT-F0C27F?style=for-the-badge&logoColor=black)](LICENSE)
+[![Zero Telemetry](https://img.shields.io/badge/Privacy-Zero%20Network-4ADE80?style=for-the-badge&logo=shield&logoColor=black)](#-privacy-by-design)
+
+<br/>
+
+[**Download DMG (v1.0.0)**](https://github.com/Moon-Meld/Hairpin/releases) • [**Quick Start**](#-quick-start) • [**Architecture**](#-how-it-works) • [**简体中文文档**](README_zh.md)
 
 </div>
 
 ---
 
-## The Problem
+## ⚡️ The Problem
 
-On notch-equipped MacBook Pro / Air models, status bar icons pile up and get **swallowed behind the camera housing**. macOS offers no native way to scroll, wrap, or access those hidden icons.
+On modern MacBook Pro and MacBook Air displays, the **camera housing (Notch)** splits the menu bar into two disjoint halves. When background apps multiply, their status bar icons extend leftward until they collide with the notch:
 
-## The Solution
-
-Hairpin uses a non-invasive dual-`NSStatusItem` technique to fold your menu bar icons behind an intelligent separator — no SIP disabling, no code injection, no accessibility permissions.
-
----
-
-## ✨ Features
-
-| Feature | Description |
-| :--- | :--- |
-| **One-Click Fold** | Left-click the Hairpin icon to collapse/expand hidden icons |
-| **Notch-Aware Panel** | Floating panel slides out below the notch to reveal folded items |
-| **Auto-Collapse** | Icons automatically fold back after a configurable delay |
-| **Hover Expand** | Optionally expand when hovering near the menu bar or notch |
-| **Global Hotkey** | `⌘⇧B` to toggle from anywhere — no accessibility permission needed |
-| **Draggable Separator** | Hold `⌘` and drag the separator to choose which icons to hide |
-| **Privacy-First** | Zero network, zero keylogging, zero screen capture |
+1. **System Swallowing**: macOS abruptly truncates overflowing icons behind the physical cutout with no scrollbar, overflow menu, or native toggle.
+2. **Invisible Services**: Critical utilities (VPNs, cloud sync, battery monitors) become unreachable.
+3. **Visual Clutter**: The visible space becomes congested with low-priority background icons.
 
 ---
 
-## 🚀 Quick Start
+## 💡 The Hairpin Solution
 
-### Build from source
+Hairpin introduces a **dual-`NSStatusItem` variable-width engine** combined with **hardware notch sensing**:
 
-```bash
-git clone <repo-url> && cd Hairpin
-
-# Build & run
-make run
-
-# Or step by step
-make build
-open build/Hairpin.app
-```
-
-### Create installer DMG
-
-```bash
-make dmg
-# → build/Hairpin-1.0.0.dmg
-```
-
-### Install to Applications
-
-```bash
-make install
-```
+* **One-Click Folding**: Instantly tuck low-frequency icons away behind a customizable separator.
+* **Notch Overflow Drawer**: A floating, frosted-glass Dynamic Island panel pops up snugly underneath the notch whenever folded icons need viewing.
+* **Zero System Intrusion**: No SIP disabling required, no private API hooking, no Accessibility keylogging permissions.
 
 ---
 
-## 🏗 Project Structure
+## ✨ Feature Highlights
 
-```
-Hairpin/
-├── Package.swift                    # SPM manifest (macOS 13+, Swift 5 mode)
-├── Makefile                         # Build, run, install, DMG commands
-├── build_app.sh                     # .app bundler + DMG creator
-│
-└── Hairpin/
-    ├── Resources/
-    │   ├── AppIcon.icns             # App icon (all sizes)
-    │   ├── Info.plist               # LSUIElement, ATS, bundle metadata
-    │   ├── Hairpin.entitlements     # Security entitlements
-    │   └── PrivacyInfo.xcprivacy    # Apple Privacy Manifest
-    │
-    └── Sources/
-        ├── App/
-        │   ├── main.swift           # Entry point
-        │   └── AppDelegate.swift    # Lifecycle, wiring
-        │
-        ├── MenuBar/
-        │   ├── MenuBarManager.swift # Dual-NSStatusItem folding engine
-        │   └── MouseTracker.swift   # On-demand mouse tracking
-        │
-        ├── Notch/
-        │   ├── NotchDetector.swift  # safeAreaInsets + auxiliaryTopRightArea
-        │   └── FloatingPanelController.swift  # Below-notch floating panel
-        │
-        ├── Settings/
-        │   └── SettingsView.swift   # SwiftUI preferences (4 tabs)
-        │
-        └── Utils/
-            ├── Models.swift         # Enums & types
-            ├── HotKeyManager.swift  # Carbon RegisterEventHotKey
-            └── UserDefaultsExtensions.swift  # Namespaced prefs
-```
-
----
-
-## 🔒 Privacy Architecture
-
-Hairpin is designed with a **zero-trust, zero-permission** philosophy:
-
-- **No Accessibility Permission** — Uses Carbon `RegisterEventHotKey` instead of `NSEvent` global monitors for the hotkey. The OS only dispatches the exact registered combination; no other keystrokes are ever visible to the app.
-- **On-Demand Mouse Tracking** — Global mouse monitor is only active when needed (during auto-collapse or hover-expand). Coordinates are used for transient hit-testing and never stored.
-- **No Screen Capture** — Pure native `NSPanel` UI. No `ScreenCaptureKit`, no `CGWindowList`.
-- **No Network** — Zero dependencies. No analytics, telemetry, or crash reporters. `NSAppTransportSecurity` is locked down in Info.plist.
-- **Apple Privacy Manifest** — Ships with `PrivacyInfo.xcprivacy` declaring zero data collection.
+| Capability | Experience | Technical Highlight |
+| :--- | :--- | :--- |
+| **🧲 Smart Folding** | Click the toggle to collapse or expand hidden icons smoothly. | Uses a 10,000pt variable spacer length to push icons into the safe zone. |
+| **🏝 Dynamic Drawer** | Slides gracefully underneath the physical camera notch. | Liquid physics entrance powered by `CAMediaTimingFunction` and `NSVisualEffectView`. |
+| **⏱ Auto-Collapse** | Automatically re-folds after the cursor leaves the menu bar. | Configurable timer (Immediate, 3s, 5s, 10s, or Never). |
+| **👀 Hover to Reveal** | Move the cursor over the notch to expand icons automatically. | On-demand geometric hit-testing without continuous background tracking. |
+| **⌨️ Global Hotkey** | Toggle anywhere with <kbd>⌘</kbd> + <kbd>⇧</kbd> + <kbd>B</kbd>. | Low-level Carbon `RegisterEventHotKey` — **no Accessibility permission required**. |
+| **🎨 Draggable Anchor** | Hold <kbd>⌘</kbd> and drag the separator to select what to hide. | Supports custom styles: invisible, vertical bar `\|`, dot `•`, or chevrons `‹` `›`. |
 
 ---
 
 ## ⚙️ How It Works
 
-The core technique:
+<p align="center">
+  <img src="docs/assets/how-it-works.svg" width="100%" alt="Hairpin Technical Architecture" />
+</p>
 
-1. **Two `NSStatusItem`s** are created — a **toggle button** (always visible) and a **separator** (draggable anchor).
-2. **Collapse**: `separator.length = 10000` pushes everything to its left off-screen.
-3. **Expand**: `separator.length = 20` restores the thin separator; icons reappear.
-4. **Notch detection**: `NSScreen.safeAreaInsets.top > 0` indicates a notch; `auxiliaryTopRightArea` gives the available width.
+### 1. Dual-Status Spacer Technique
+Unlike tools that attempt to inject code into `WindowServer` or other processes, Hairpin allocates two coordinated `NSStatusItem`s:
+- **Toggle Item**: The always-visible trigger button anchored on the far right.
+- **Separator Item**: The draggable boundary placed to the left of the items you wish to keep visible.
+- **Collapsed**: The separator's length expands to `10,000pt`, smoothly shunting all status items to its left off the visible display boundary.
+- **Expanded**: The separator shrinks back to a thin divider (`1pt`–`20pt`), instantly restoring all hidden icons.
+
+### 2. Notch Hardware Awareness
+```swift
+// Real-time detection via Apple AppKit display metrics
+let hasNotch = screen.safeAreaInsets.top > 0
+if let auxRight = screen.auxiliaryTopRightArea {
+    let usableWidth = auxRight.width
+    let notchBoundary = auxRight.minX
+}
+```
+Hairpin continuously listens for display topology changes (e.g. plugging in an external monitor) and recalibrates geometry automatically.
 
 ---
 
-## 📋 Requirements
+## 📊 Feature Comparison
 
-- macOS 13.0 (Ventura) or later
-- Apple Silicon or Intel Mac
-- Swift 6.0+ toolchain (for building from source)
+| Feature | **Hairpin** | **Bartender 5** | **Hidden Bar** | **Ice** |
+| :--- | :---: | :---: | :---: | :---: |
+| **License / Pricing** | **Free & Open Source (MIT)** | $16 Commercial | Free / Abandoned | Free & Open Source |
+| **SIP Disabled Required** | **No (100% Native)** | No (uses Accessibility) | No | No |
+| **Accessibility Permissions** | **Not Required** | Required | Required for hotkeys | Required for hotkeys |
+| **Screen Recording Permission** | **Not Required** | Required for previews | Not Required | Required for styling |
+| **Notch Drawer / Floating Panel** | **Yes (Dynamic Island)** | Menu bar sub-bar | No | Floating Bar |
+| **Network Telemetry** | **None (Zero Network)** | Has update telemetry | None | None |
+| **Swift 6 & macOS 15 Ready** | **Yes** | Yes | No | Yes |
 
 ---
 
-## License
+## ⌨️ Shortcuts & Gestures
 
-MIT
+| Action | Gesture / Shortcut | Description |
+| :--- | :--- | :--- |
+| **Toggle Folding** | `Left-Click` on Hairpin icon | Instantly collapse or expand hidden icons. |
+| **Quick Settings Menu** | `Right-Click` on Hairpin icon | Access auto-collapse timers, preferences, and quit. |
+| **Global Hotkey** | <kbd>⌘ Command</kbd> + <kbd>⇧ Shift</kbd> + <kbd>B</kbd> | Toggle menu bar state from any application. |
+| **Reposition Separator** | <kbd>⌘ Command</kbd> + `Drag` separator icon | Choose which icons remain visible vs folded. |
+| **Hover Expand** | Hover over notch area for `0.5s` | Automatically reveals folded icons (when enabled). |
+
+---
+
+## 🚀 Quick Start
+
+### Option 1: Pre-built DMG Installer (Recommended)
+
+1. Download the latest release from the [Releases](https://github.com/Moon-Meld/Hairpin/releases) page.
+2. Open `Hairpin-1.0.0.dmg` and drag **Hairpin** to your `/Applications` folder.
+3. Launch Hairpin — the icon will appear in your top-right menu bar immediately.
+
+### Option 2: Build from Source
+
+Requirements: macOS 13.0+, Xcode CommandLineTools (`xcode-select --install`).
+
+```bash
+# 1. Clone repository
+git clone https://github.com/Moon-Meld/Hairpin.git
+cd Hairpin
+
+# 2. Build & run instantly
+make run
+
+# 3. (Optional) Generate production release DMG
+make dmg
+# Output: build/Hairpin-1.0.0.dmg
+
+# 4. (Optional) Install directly to /Applications
+make install
+```
+
+---
+
+## 🔒 Privacy by Design
+
+Hairpin is engineered with strict **Zero-Trust & Zero-Permission** principles:
+
+```
+┌─────────────────────────────────────────────────────────────┐
+│                   HAIRPIN PRIVACY POLICY                    │
+├──────────────────────────┬──────────────────────────────────┤
+│ 🚫 No Network Activity   │ Info.plist ATS blocks all traffic│
+│ ⌨️ Zero Keylogger Risk   │ Uses Carbon RegisterEventHotKey  │
+│ 👁 No Screen Recording   │ Zero display frame buffer access │
+│ ⏱ On-Demand Mouse Scan   │ Deactivates when not in use      │
+│ 📋 Apple Privacy Manifest│ Ships with PrivacyInfo.xcprivacy │
+└──────────────────────────┴──────────────────────────────────┘
+```
+
+* **No Accessibility Prompts**: Unlike conventional menu utilities that use `NSEvent.addGlobalMonitorForEvents` (which intercepts all keyboard inputs like a keylogger), Hairpin relies strictly on Carbon's `RegisterEventHotKey`. The operating system only dispatches an event when the exact ⌘⇧B key combination is pressed.
+* **On-Demand Sensor**: The cursor tracker is dormant whenever Hairpin is collapsed in click-only mode. Coordinates are compared transiently and never stored or logged.
+* **Apple Privacy Manifest**: Formally complies with Apple's macOS 14+ privacy requirements via [PrivacyInfo.xcprivacy](Hairpin/Resources/PrivacyInfo.xcprivacy).
+
+---
+
+## 📂 Project Structure
+
+```text
+Hairpin/
+├── Package.swift                    # Swift Package Manager manifest (macOS 13+, Swift 5/6)
+├── Makefile                         # Unified commands (build, run, release, dmg, install)
+├── build_app.sh                     # Automated .app bundler & DMG packager
+├── README.md                        # English documentation
+├── README_zh.md                     # 简体中文文档
+│
+├── docs/
+│   └── assets/
+│       ├── hero-banner.jpg          # High-resolution showcase banner
+│       ├── banner.svg               # Vector brand badge & overview
+│       └── how-it-works.svg         # Architecture & mechanism diagram
+│
+└── Hairpin/
+    ├── Resources/
+    │   ├── AppIcon-1024.png         # 1024px master icon
+    │   ├── AppIcon.icns             # Multi-resolution macOS icon bundle
+    │   ├── Info.plist               # LSUIElement=YES & ATS network isolation
+    │   ├── Hairpin.entitlements     # Hardened runtime definitions
+    │   └── PrivacyInfo.xcprivacy    # Apple Privacy Manifest
+    │
+    └── Sources/
+        ├── App/                     # Entry point & application lifecycle
+        ├── MenuBar/                 # Dual status item engine & mouse tracking
+        ├── Notch/                   # Safe area detection & dynamic floating panel
+        ├── Settings/                # SwiftUI 4-tab preferences interface
+        └── Utils/                   # HotKeyManager & namespaced persistence
+```
+
+---
+
+## 💬 FAQ
+
+<details>
+<summary><b>Q: Why doesn't Hairpin require Accessibility or Screen Recording permissions?</b></summary>
+<br/>
+Most menu bar managers hook deep into WindowServer or capture window lists to redraw icons, requiring sensitive permissions. Hairpin works within standard AppKit status item capabilities by adjusting spacers, and registers global hotkeys via Carbon HIToolbox, completely avoiding privileged permission prompts.
+</details>
+
+<details>
+<summary><b>Q: How do I choose which icons are hidden?</b></summary>
+<br/>
+Hold the <kbd>⌘ Command</kbd> key and drag the Hairpin Separator icon (`|`) in your menu bar. Every status icon positioned to the left of the separator will be folded when Hairpin is collapsed.
+</details>
+
+<details>
+<summary><b>Q: Does Hairpin work on Macs without a notch?</b></summary>
+<br/>
+Yes! On notchless displays (Mac mini, Mac Studio, iMac, or external monitors), Hairpin functions as a high-performance menu bar folding utility, with the floating drawer appearing centered below the menu bar.
+</details>
+
+---
+
+## 📄 License
+
+This project is open-source under the [MIT License](LICENSE).  
+Contributions and stars are always welcome! ⭐️
+
+<div align="center">
+<sub>Crafted with passion for the Mac community. Designed for Apple Silicon &amp; macOS Ventura, Sonoma, and Sequoia.</sub>
+</div>
