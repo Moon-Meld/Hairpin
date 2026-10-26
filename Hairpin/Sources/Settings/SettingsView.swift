@@ -27,6 +27,9 @@ struct SettingsView: View {
     @AppStorage("com.hairpin.triggerMode")       private var triggerMode: Int = 0
     @AppStorage("com.hairpin.separatorStyle")    private var separatorStyle: Int = 1
     @AppStorage("com.hairpin.launchAtLogin")     private var launchAtLogin: Bool = false
+    @AppStorage("com.hairpin.clickAction")       private var clickAction: Int = 1
+    @AppStorage("com.hairpin.hapticFeedback")    private var hapticFeedback: Bool = true
+    @AppStorage("com.hairpin.autoDismissPanel")  private var autoDismissPanel: Bool = true
 
     @State private var loginItemError: String?
     @State private var selectedTab = 0
@@ -139,6 +142,28 @@ struct SettingsView: View {
                         }
                         .pickerStyle(.menu)
                         .font(.system(size: 13))
+
+                        Picker("Left-Click Action", selection: $clickAction) {
+                            ForEach(ClickAction.allCases) { action in
+                                Text(action.label).tag(action.rawValue)
+                            }
+                        }
+                        .pickerStyle(.menu)
+                        .font(.system(size: 13))
+
+                        Toggle(isOn: $hapticFeedback) {
+                            Label("Haptic Feedback on Click", systemImage: "hand.tap")
+                                .font(.system(size: 13))
+                        }
+                        .toggleStyle(.switch)
+                        .tint(Color.orange)
+
+                        Toggle(isOn: $autoDismissPanel) {
+                            Label("Auto-Dismiss Drawer on Click Outside", systemImage: "cursorarrow.and.square.on.square.dashed")
+                                .font(.system(size: 13))
+                        }
+                        .toggleStyle(.switch)
+                        .tint(Color.orange)
                     }
                 }
 

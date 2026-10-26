@@ -47,11 +47,10 @@ final class MenuBarManager: ObservableObject {
         UserDefaults.registerHairpinDefaults()
 
         setupStatusItems()
-        applyOrderingGuard()
-
-        // Restore persisted state
         if UserDefaults.standard.hairpinIsCollapsed {
             collapse(animated: false)
+        } else {
+            startOrderingGuard()
         }
     }
 
@@ -90,6 +89,7 @@ final class MenuBarManager: ObservableObject {
     func collapse(animated: Bool = true) {
         state = .collapsed
         UserDefaults.standard.hairpinIsCollapsed = true
+        stopOrderingGuard()
 
         if animated {
             NSAnimationContext.runAnimationGroup { ctx in
@@ -101,6 +101,7 @@ final class MenuBarManager: ObservableObject {
         }
 
         updateToggleIcon()
+        triggerHapticFeedback()
         delegate?.menuBarManagerDidToggle(isCollapsed: true)
     }
 
@@ -108,6 +109,8 @@ final class MenuBarManager: ObservableObject {
     func expand(animated: Bool = true) {
         state = .expanded
         UserDefaults.standard.hairpinIsCollapsed = false
+        verifyOrdering()
+        startOrderingGuard()
 
         let targetWidth = separatorDisplayWidth
 
@@ -122,6 +125,7 @@ final class MenuBarManager: ObservableObject {
 
         updateSeparatorAppearance()
         updateToggleIcon()
+        triggerHapticFeedback()
         delegate?.menuBarManagerDidToggle(isCollapsed: false)
     }
 
@@ -179,13 +183,18 @@ final class MenuBarManager: ObservableObject {
         if event.type == .rightMouseUp {
             showContextMenu()
         } else {
-            // Left click — if notch screen and collapsed, offer floating panel
-            if notchDetector.hasNotch && isCollapsed {
+            let clickAction = ClickAction(rawValue: UserDefaults.standard.hairpinClickAction) ?? .notchDrawerWhenCollapsed
+            if notchDetector.hasNotch && isCollapsed && clickAction == .notchDrawerWhenCollapsed {
                 delegate?.menuBarManagerDidRequestFloatingPanel()
             } else {
                 toggle()
             }
         }
+    }
+
+    private func triggerHapticFeedback() {
+        guard UserDefaults.standard.hairpinHapticFeedback else { return }
+        NSHapticFeedbackManager.defaultPerformer.perform(.generic, performanceTime: .default)
     }
 
     // MARK: - Context Menu
@@ -249,16 +258,23 @@ final class MenuBarManager: ObservableObject {
         NSApp.terminate(nil)
     }
 
-    // MARK: - Ordering Guard
+    // MARK: - Battery-Optimized Ordering Guard
 
-    /// Periodically check that `separatorItem` is left of `toggleItem`.
-    /// If a user accidentally drags them out of order, we fix it.
-    private func applyOrderingGuard() {
-        orderingTimer = Timer.scheduledTimer(withTimeInterval: 2.0, repeats: true) { [weak self] _ in
+    /// Starts a coalesced background timer only while expanded.
+    private func startOrderingGuard() {
+        guard orderingTimer == nil else { return }
+        let timer = Timer.scheduledTimer(withTimeInterval: 10.0, repeats: true) { [weak self] _ in
             Task { @MainActor in
                 self?.verifyOrdering()
             }
         }
+        timer.tolerance = 5.0 // Coalesce timer wake-ups to save MacBook battery
+        orderingTimer = timer
+    }
+
+    private func stopOrderingGuard() {
+        orderingTimer?.invalidate()
+        orderingTimer = nil
     }
 
     private func verifyOrdering() {

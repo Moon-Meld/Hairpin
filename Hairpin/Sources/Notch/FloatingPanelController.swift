@@ -21,6 +21,8 @@ final class FloatingPanelController {
 
     private var panel: NSPanel?
     private var isVisible = false
+    private var clickOutsideMonitor: Any?
+    private var keyMonitor: Any?
 
     // MARK: - Init
 
@@ -108,10 +110,14 @@ final class FloatingPanelController {
 
         self.panel = p
         self.isVisible = true
+
+        // Dismiss on ESC or click outside
+        installDismissMonitors()
     }
 
     func hidePanel() {
         guard isVisible, let p = panel else { return }
+        removeDismissMonitors()
 
         var endFrame = p.frame
         endFrame.origin.y += 6
@@ -126,6 +132,43 @@ final class FloatingPanelController {
             self?.panel = nil
             self?.isVisible = false
         })
+    }
+
+    // MARK: - Auto-Dismiss Monitors
+
+    private func installDismissMonitors() {
+        if UserDefaults.standard.hairpinAutoDismissPanel {
+            clickOutsideMonitor = NSEvent.addGlobalMonitorForEvents(matching: [.leftMouseDown, .rightMouseDown]) { [weak self] _ in
+                Task { @MainActor in
+                    guard let self = self, let p = self.panel else { return }
+                    let mouseLoc = NSEvent.mouseLocation
+                    if !p.frame.contains(mouseLoc) && !self.menuBarManager.toggleItemFrame.contains(mouseLoc) {
+                        self.hidePanel()
+                    }
+                }
+            }
+        }
+
+        keyMonitor = NSEvent.addLocalMonitorForEvents(matching: .keyDown) { [weak self] event in
+            if event.keyCode == 53 /* ESC */ {
+                Task { @MainActor in
+                    self?.hidePanel()
+                }
+                return nil
+            }
+            return event
+        }
+    }
+
+    private func removeDismissMonitors() {
+        if let m = clickOutsideMonitor {
+            NSEvent.removeMonitor(m)
+            clickOutsideMonitor = nil
+        }
+        if let m = keyMonitor {
+            NSEvent.removeMonitor(m)
+            keyMonitor = nil
+        }
     }
 }
 

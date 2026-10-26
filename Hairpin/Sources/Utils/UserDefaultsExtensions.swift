@@ -19,6 +19,9 @@ extension UserDefaults {
         static let launchAtLogin     = "com.hairpin.launchAtLogin"
         static let showOnboardingTip = "com.hairpin.showOnboardingTip"
         static let isCollapsed       = "com.hairpin.isCollapsed"
+        static let clickAction       = "com.hairpin.clickAction"
+        static let hapticFeedback    = "com.hairpin.hapticFeedback"
+        static let autoDismissPanel  = "com.hairpin.autoDismissPanel"
     }
 
     // MARK: - Defaults Registration
@@ -31,6 +34,9 @@ extension UserDefaults {
             Keys.launchAtLogin: false,
             Keys.showOnboardingTip: true,
             Keys.isCollapsed: false,
+            Keys.clickAction: ClickAction.notchDrawerWhenCollapsed.rawValue,
+            Keys.hapticFeedback: true,
+            Keys.autoDismissPanel: true,
         ])
     }
 
@@ -49,6 +55,21 @@ extension UserDefaults {
     @objc dynamic var hairpinSeparatorStyle: Int {
         get { integer(forKey: Keys.separatorStyle) }
         set { set(newValue, forKey: Keys.separatorStyle) }
+    }
+
+    @objc dynamic var hairpinClickAction: Int {
+        get { integer(forKey: Keys.clickAction) }
+        set { set(newValue, forKey: Keys.clickAction) }
+    }
+
+    var hairpinHapticFeedback: Bool {
+        get { bool(forKey: Keys.hapticFeedback) }
+        set { set(newValue, forKey: Keys.hapticFeedback) }
+    }
+
+    var hairpinAutoDismissPanel: Bool {
+        get { bool(forKey: Keys.autoDismissPanel) }
+        set { set(newValue, forKey: Keys.autoDismissPanel) }
     }
 
     var hairpinLaunchAtLogin: Bool {

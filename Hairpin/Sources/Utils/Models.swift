@@ -81,3 +81,20 @@ enum CollapseState {
     case collapsed
     case expanded
 }
+
+// MARK: - Click Action
+
+/// What happens when the user left-clicks the toggle button on notch screens.
+enum ClickAction: Int, CaseIterable, Identifiable {
+    case directToggle = 0
+    case notchDrawerWhenCollapsed = 1
+
+    var id: Int { rawValue }
+
+    var label: String {
+        switch self {
+        case .directToggle:             return "Always Toggle Menu Bar"
+        case .notchDrawerWhenCollapsed: return "Show Notch Drawer when collapsed"
+        }
+    }
+}

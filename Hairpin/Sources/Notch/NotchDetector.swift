@@ -90,7 +90,7 @@ final class NotchDetector: ObservableObject {
                 let rightX = notchX + notchWidth
                 availableStatusBarRect = CGRect(
                     x: rightX,
-                    y: screen.frame.maxY - screen.frame.height,
+                    y: screen.frame.maxY - insets.top,
                     width: screen.frame.maxX - rightX,
                     height: insets.top
                 )
