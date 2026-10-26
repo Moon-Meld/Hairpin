@@ -1,0 +1,18 @@
+# Build artifacts
+.build/
+build/
+
+# Xcode
+*.xcodeproj/
+*.xcworkspace/
+xcuserdata/
+DerivedData/
+
+# macOS
+.DS_Store
+*.swp
+*~
+
+# Icon generation intermediates
+Hairpin/Resources/AppIcon.iconset/
+Hairpin/Resources/AppIcon-1024.jpg
